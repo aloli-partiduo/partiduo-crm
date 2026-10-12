@@ -17,7 +17,7 @@
 Partiduo::Modules.register do
   code "CRM"
   name "crm.module.name"
-  version "0.1.0"
+  version Crm::VERSION
   requires_core "~> 0.1"
   depends_on "INVOICING"
 
