@@ -40,7 +40,7 @@ describe "Écrans de la relation client sous /ext/CRM/ (ADR-009, ADR-005)" do
     Api.create_activity(S.seller, Api::ActivityInput.new(kind: "call", subject: "Rappeler", due_on: S.today - 1.day,
       organization_id: S.organization("Autre").id)).value!
     dashboard = browser.get("/").html
-    dashboard.should contain(%(<p class="menu-label" id="pd-menu-CRM">Relation client</p>))
+    dashboard.should contain(%(id="pd-menu-CRM">Relation client</)) # titre de rubrique, en <p> ou en <span> repliable
     dashboard.should contain(%(href="/ext/CRM/pipeline"))
     dashboard.should contain(%(<span class="pd-count" data-pd-count="CRM_ACTIVITIES">1</span>))
     dashboard.should contain(%(data-module="CRM"))
