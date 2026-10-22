@@ -126,7 +126,7 @@ module Crm
       return if value.empty?
       begin
         Time.parse_utc(value, "%Y-%m-%d")
-      rescue Time::Format::Error
+      rescue Time::Format::Error | ArgumentError
         fmt.parse_date(value)
       end
     end

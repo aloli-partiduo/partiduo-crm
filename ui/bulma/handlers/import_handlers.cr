@@ -89,7 +89,7 @@ module Crm
           values["rows"] = preview.rows.first(PREVIEW_ROWS).map { |row| preview_row(row, mapped.map { |header| preview.mapping[header] }) }
           values["summary"] = I18n.t("crm_ui.import.summary", count: preview.rows.size, importable: preview.importable_count)
           values["importable"] = preview.importable_count > 0 ? I18n.t("crm_ui.import.submit", count: preview.importable_count) : nil
-          values["truncated"] = preview.rows.size > PREVIEW_ROWS ? I18n.t("crm_ui.import.truncated", count: PREVIEW_ROWS) : nil
+          values["truncated"] = preview.rows.size > PREVIEW_ROWS ? I18n.t("crm_ui.import.truncated", {"count" => PREVIEW_ROWS.to_s}) : nil
         end
         page("crm/import.html", values, status: preview ? 200 : 422)
       end
