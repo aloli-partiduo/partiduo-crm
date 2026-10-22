@@ -232,7 +232,7 @@ module Crm
       folded = fold(value)
       return if folded.empty?
       codes.find do |code|
-        fold(code) == folded || Partiduo::LOCALES.any? { |locale| I18n.with_locale(locale) { fold(I18n.t("#{scope}.#{code}")) == folded } }
+        fold(code) == folded || Partiduo::LOCALES.any? { |locale| I18n.with_locale(locale) { fold(I18n.t("#{scope}.#{code}", default: "")) == folded } }
       end
     end
 
@@ -243,7 +243,7 @@ module Crm
       return if folded.empty?
       Source.filter(active: true).to_a.find do |row|
         fold(row.code.to_s) == folded || fold(row.name.to_s) == folded ||
-          (!row.code.to_s.empty? && Partiduo::LOCALES.any? { |locale| I18n.with_locale(locale) { fold(I18n.t("crm.sources.#{row.code}")) == folded } })
+          (!row.code.to_s.empty? && Partiduo::LOCALES.any? { |locale| I18n.with_locale(locale) { fold(I18n.t("crm.sources.#{row.code}", default: "")) == folded } })
       end.try(&.id).try(&.to_i64)
     end
   end
