@@ -17,7 +17,7 @@ private CSV_FR = <<-CSV
   CSV
 
 describe "Relation client — import et export CSV (ADR-009 D8)" do
-  it "propose la correspondance des colonnes d'après les en-têtes (fr, en, nl) et reconnaît le séparateur" do
+  it "propose la correspondance des colonnes d'après les en-têtes (langues de l'interface) et reconnaît le séparateur" do
     S.setup
     preview = Api.preview_import(S.writer, Api::ImportInput.new(CSV_FR)).value!
     preview.separator.should eq(';')
@@ -33,6 +33,17 @@ describe "Relation client — import et export CSV (ADR-009 D8)" do
     dutch = Api.preview_import(S.writer, Api::ImportInput.new("Bedrijf\tVoornaam\tAchternaam\tGemeente\nBakkerij Peeters\tJan\tPeeters\tGent\n")).value!
     dutch.separator.should eq('\t')
     dutch.mapping.values.should eq(%w[organization_name contact_first_name contact_last_name organization_city])
+    german = Api.preview_import(S.writer, Api::ImportInput.new("Firma;Art der Organisation;Vorname;Nachname;E-Mail;PLZ;Ort\nBäckerei Müller;;Hans;Müller;hans@mueller.test;10115;Berlin\n")).value!
+    german.mapping.values.should eq(%w[organization_name organization_nature contact_first_name contact_last_name contact_email organization_postcode organization_city])
+    spanish = Api.preview_import(S.writer, Api::ImportInput.new("Empresa,Nombre,Apellidos,Correo electrónico,Teléfono\nPanadería Ruiz,Ana,Ruiz,ana@ruiz.test,\n")).value!
+    spanish.mapping.values.should eq(%w[organization_name contact_first_name contact_last_name contact_email contact_phone])
+    italian = Api.preview_import(S.writer, Api::ImportInput.new("Azienda\tNome\tCognome\tCittà\tPartita IVA\nForno Rossi\tLuca\tRossi\tTorino\t\n")).value!
+    italian.mapping.values.should eq(%w[organization_name contact_first_name contact_last_name organization_city organization_vat_number])
+    portuguese = Api.preview_import(S.writer, Api::ImportInput.new("Empresa;Nome próprio;Apelido;Telemóvel;Localidade\nPadaria Silva;Rui;Silva;;Porto\n")).value!
+    portuguese.mapping.values.should eq(%w[organization_name contact_first_name contact_last_name contact_mobile organization_city])
+    # Un libellé d'une langue ne prend pas le pas sur un synonyme : « Title »
+    # (civilité en anglais) reste la fonction.
+    Crm::Importer.propose(["Title"]).should eq({"Title" => "contact_job_title"})
   end
 
   it "signale en aperçu les doublons (SIREN, courriel, nom) et les erreurs, sans rien enregistrer" do

@@ -249,7 +249,7 @@ en:
       basis_help: "Applied to contacts whose legal basis is not in the file (GDPR)."
       preview: "Preview"
       fields_title: "Recognised fields"
-      fields_help: "Headers are recognised in French, English and Dutch; the mapping can be adjusted in the preview."
+      fields_help: "Headers are recognised in the interface languages; the mapping can be adjusted in the preview."
       mapping: "Column mapping"
       mapping_help: "Choose the field of each column, then refresh the preview."
       column: "Column"

@@ -21,7 +21,8 @@
 |===
 
 Interface : `ui/bulma/` (tableau de bord, pipeline, opportunités, organisations,
-contacts, « Mes activités », import, paramétrage), i18n fr, en, nl complète.
+contacts, « Mes activités », import, paramétrage), i18n complète en fr,
+en, nl, de, es, it, pt.
 Démonstration : `scripts/demo.cr` (voir le README).
 
 == Décisions
@@ -128,7 +129,8 @@ l'écran « Changer d'étape » (motif). Colonnes : étapes actives, « Gagnée 
 
 === D-CRM-014 — Import CSV
 
-Séparateur reconnu sur la première ligne ; en-têtes reconnus en fr, en, nl ;
+Séparateur reconnu sur la première ligne ; en-têtes reconnus dans les
+langues de l'interface (D-CRM-019) ;
 correspondance ajustable ; 5 000 lignes et 2 Mo au plus, UTF-8. Doublons
 (SIREN, nom d'organisation, courriel, prénom et nom) signalés à l'aperçu et
 *écartés* à l'import ; plusieurs lignes d'une même organisation du fichier
@@ -167,6 +169,17 @@ pour les actions « Appeler » (`tel:`) et « Écrire » (`mailto:`) d'une
 organisation et d'un contact (pas pour un contact opposé à la prospection),
 et devant la nature d'une activité dans « Mes activités » (appel, courriel,
 rendez-vous, tâche, note). Numéros de téléphone des fiches en liens `tel:`.
+
+=== D-CRM-019 — Sept langues d'interface (23 octobre 2026)
+
+L'interface passe à fr, en, nl, de, es, it, pt (`Partiduo::LOCALES`) :
+locales de l'extension et des écrans dans les sept langues. L'import
+reconnaît un en-tête par le code du champ ou ses synonymes (désormais aussi
+allemands, espagnols, italiens et portugais), à défaut par le libellé du
+champ dans une des langues de l'interface ; un synonyme l'emporte sur un
+libellé (« Title », civilité en anglais, reste la fonction comme avant).
+Les valeurs de civilité et d'origine étaient déjà reconnues dans chaque
+langue livrée.
 
 == Blocages
 

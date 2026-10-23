@@ -3,7 +3,7 @@
 module Crm
   # Import CSV des organisations et contacts (ADR-009 D8) : séparateur
   # reconnu (`;`, `,` ou tabulation), correspondance des colonnes proposée
-  # d'après les en-têtes (fr, en, nl), aperçu ligne par ligne, doublons
+  # d'après les en-têtes (langues de l'interface), aperçu ligne par ligne, doublons
   # signalés par SIREN, courriel ou nom — et écartés à l'import. Interne.
   module Importer
     alias Api = Crm::Api
@@ -13,27 +13,27 @@ module Crm
 
     # En-têtes reconnus (repliés : minuscules, sans accents ni ponctuation).
     SYNONYMS = {
-      "organization_name"       => %w[organisation organization organisatie societe entreprise company bedrijf raisonsociale nomorganisation organisationname],
-      "organization_nature"     => %w[nature naturedelorganisation organizationnature aard type],
+      "organization_name"       => %w[organisation organization organisatie societe entreprise company bedrijf raisonsociale nomorganisation organisationname firma unternehmen empresa sociedad azienda societa ragionesociale razaosocial organizacion organizzazione organizacao],
+      "organization_nature"     => %w[nature naturedelorganisation organizationnature aard type art typ tipo naturaleza natura natureza],
       "organization_siren"      => %w[siren sirennumber],
-      "organization_vat_number" => %w[tva numerotva notva vat vatnumber btw btwnummer tvaintracommunautaire],
-      "organization_email"      => %w[courrielorganisation emailorganisation courrielsociete emailsociete companyemail organisationemail],
-      "organization_phone"      => %w[telephoneorganisation telephonesociete standard companyphone organisationtelefoon],
-      "organization_website"    => %w[site siteweb siteinternet website web url],
-      "organization_line1"      => %w[adresse address adres rue street straat],
-      "organization_postcode"   => %w[codepostal cp postcode zip zipcode postalcode],
-      "organization_city"       => %w[ville city commune gemeente stad plaats],
-      "organization_country"    => %w[pays country land codepays countrycode],
-      "contact_civility"        => %w[civilite civility aanspreking salutation],
-      "contact_first_name"      => %w[prenom firstname givenname voornaam],
-      "contact_last_name"       => %w[nom lastname surname familyname achternaam familienaam naam nomdefamille],
-      "contact_job_title"       => %w[fonction poste jobtitle title functie],
-      "contact_email"           => %w[email courriel mail emailaddress adressecourriel emailadres],
-      "contact_phone"           => %w[telephone tel phone telefoon telefoonnummer],
-      "contact_mobile"          => %w[mobile portable gsm mobiel cellphone],
-      "source"                  => %w[origine source bron],
-      "legal_basis"             => %w[baselegale legalbasis rechtsgrond],
-      "notes"                   => %w[notes remarques commentaire commentaires comment opmerkingen notities],
+      "organization_vat_number" => %w[tva numerotva notva vat vatnumber btw btwnummer tvaintracommunautaire ustid ustidnr umsatzsteuerid nif cif nifiva partitaiva piva numeroiva],
+      "organization_email"      => %w[courrielorganisation emailorganisation courrielsociete emailsociete companyemail organisationemail emailfirma correoempresa emailazienda emailempresa],
+      "organization_phone"      => %w[telephoneorganisation telephonesociete standard companyphone organisationtelefoon telefonfirma telefonoempresa telefonoazienda telefoneempresa],
+      "organization_website"    => %w[site siteweb siteinternet website web url webseite homepage sitioweb paginaweb sitoweb],
+      "organization_line1"      => %w[adresse address adres rue street straat strasse anschrift direccion calle indirizzo via morada rua endereco],
+      "organization_postcode"   => %w[codepostal cp postcode zip zipcode postalcode plz postleitzahl codigopostal cap codicepostale],
+      "organization_city"       => %w[ville city commune gemeente stad plaats ort ciudad localidad poblacion citta comune cidade localidade],
+      "organization_country"    => %w[pays country land codepays countrycode staat pais paese],
+      "contact_civility"        => %w[civilite civility aanspreking salutation anrede tratamiento appellativo tratamento],
+      "contact_first_name"      => %w[prenom firstname givenname voornaam vorname nombre nome nomeproprio primeironome],
+      "contact_last_name"       => %w[nom lastname surname familyname achternaam familienaam naam nomdefamille nachname familienname apellido apellidos cognome apelido sobrenome],
+      "contact_job_title"       => %w[fonction poste jobtitle title functie position funktion cargo puesto ruolo funzione funcao],
+      "contact_email"           => %w[email courriel mail emailaddress adressecourriel emailadres emailadresse correo correoelectronico postaelettronica correioeletronico],
+      "contact_phone"           => %w[telephone tel phone telefoon telefoonnummer telefon telefono telefone telefonnummer],
+      "contact_mobile"          => %w[mobile portable gsm mobiel cellphone handy mobil mobiltelefon movil cellulare telemovel],
+      "source"                  => %w[origine source bron herkunft quelle origen fuente provenienza origem fonte],
+      "legal_basis"             => %w[baselegale legalbasis rechtsgrond rechtsgrundlage basejuridica basegiuridica fundamentojuridico],
+      "notes"                   => %w[notes remarques commentaire commentaires comment opmerkingen notities notizen bemerkungen anmerkungen notas observaciones comentarios commenti osservazioni observacoes],
     }
 
     def self.fold(text : String) : String
@@ -57,11 +57,19 @@ module Crm
       {headers, numbered, sep}
     end
 
+    # Correspondance proposée : un en-tête reconnaît un champ par son code
+    # ou ses synonymes, à défaut par son libellé dans une des langues de
+    # l'interface (`Partiduo::LOCALES`) ; « Title » reste la fonction.
     def self.propose(headers : Array(String)) : Hash(String, String)
+      labels = Api::IMPORT_FIELDS.to_h do |name|
+        {name, Partiduo::LOCALES.map { |locale| I18n.with_locale(locale) { fold(I18n.t("crm.import.fields.#{name}")) } }}
+      end
       used = Set(String).new
       headers.to_h do |header|
         folded = fold(header)
-        field = Api::IMPORT_FIELDS.find { |name| !used.includes?(name) && (fold(name) == folded || SYNONYMS[name]?.try(&.includes?(folded))) }
+        free = Api::IMPORT_FIELDS.reject { |name| used.includes?(name) }
+        field = free.find { |name| fold(name) == folded || SYNONYMS[name]?.try(&.includes?(folded)) } ||
+                free.find { |name| labels[name].includes?(folded) }
         used << field if field
         {header, field || ""}
       end
@@ -227,7 +235,7 @@ module Crm
     end
 
     # Code d'une valeur saisie : le code lui-même ou son libellé dans une
-    # des trois langues ; `nil` si rien ne correspond.
+    # des langues de l'interface ; `nil` si rien ne correspond.
     private def self.choice_code(value : String, codes : Array(String), scope : String) : String?
       folded = fold(value)
       return if folded.empty?

@@ -61,8 +61,9 @@ la Facturation ; tuile « Commercial » sur les tableaux de bord du dossier
 `invoicing.invoice.write`, faire devenir client `cards.card.write`.
 
 |Import et export (D8)
-|Import CSV des organisations et contacts (séparateur reconnu, en-têtes fr,
-en, nl, correspondance ajustable, doublons par SIREN, courriel ou nom) ;
+|Import CSV des organisations et contacts (séparateur reconnu, en-têtes
+dans les langues de l'interface, correspondance ajustable, doublons par
+SIREN, courriel ou nom) ;
 export CSV de chaque liste et des contacts pour une action commerciale.
 |===
 
@@ -79,7 +80,7 @@ src/
     ├── migrations/            # 0001 : tables, contraintes, valeurs initiales
     ├── services/              # règles, pipeline, conversion, abonnés, import (interne)
     ├── api/                   # contrat public Crm::Api
-    └── locales/               # fr, en, nl
+    └── locales/               # fr, en, nl, de, es, it, pt
 ui/
 └── bulma/                     # interface pour partiduo-ui-bulma (application « crm_ui »)
     ├── bulma.cr               # routes sous /ext/CRM/, compteur du menu

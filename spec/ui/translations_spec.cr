@@ -3,18 +3,19 @@
 require "../spec_helper"
 
 # Traductions des écrans de l'extension (ADR-005 D7) : chaque route de
-# `/ext/CRM/` servie en `GET` (liste tirée du routeur de Marten), obtenue
-# en fr, en et nl par un administrateur, sur un jeu de données varié :
-# organisations prospect et cliente, contacts (l'un opposé), opportunités
-# ouverte, gagnée (devis émis) et perdue, activités en retard, à venir et
-# faite. Contrôle de l'interface (`PartiduoUi::Translations`) : ni marqueur
-# de traduction absente, ni clé brute, ni interpolation non résolue, et
-# toute route atteinte par les liens des pages.
+# `/ext/CRM/` servie en `GET` (liste tirée du routeur de Marten),
+# obtenue dans chaque langue de l'interface par un administrateur, sur
+# un jeu de données varié : organisations prospect et cliente, contacts
+# (l'un opposé), opportunités ouverte, gagnée (devis émis) et perdue,
+# activités en retard, à venir et faite. Contrôle de l'interface
+# (`PartiduoUi::Translations`) : ni marqueur de traduction absente, ni
+# clé brute, ni interpolation non résolue, et toute route atteinte par
+# les liens des pages.
 
 private alias S = Crm::SpecSupport
 private alias Api = Crm::Api
 
-describe "Traductions des écrans CRM (fr, en, nl)" do
+describe "Traductions des écrans CRM (langues de l'interface)" do
   it "rend chaque écran dans chaque langue, sans clé absente, brute ni interpolation non résolue" do
     browser = PartiduoUi::Books.admin
     S.user("bruno@example.com", "Bruno")

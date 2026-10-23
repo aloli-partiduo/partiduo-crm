@@ -249,7 +249,7 @@ nl:
       basis_help: "Toegepast op contactpersonen zonder rechtsgrond in het bestand (AVG)."
       preview: "Voorbeeld bekijken"
       fields_title: "Herkende velden"
-      fields_help: "Kopteksten worden herkend in het Frans, Engels en Nederlands; de koppeling is aanpasbaar in het voorbeeld."
+      fields_help: "Kopteksten worden herkend in de talen van de interface; de koppeling is aanpasbaar in het voorbeeld."
       mapping: "Koppeling van de kolommen"
       mapping_help: "Kies het veld van elke kolom en vernieuw het voorbeeld."
       column: "Kolom"

@@ -249,7 +249,7 @@ fr:
       basis_help: "Appliquée aux contacts dont le fichier ne donne pas la base légale (RGPD)."
       preview: "Voir l'aperçu"
       fields_title: "Champs reconnus"
-      fields_help: "Les en-têtes sont reconnus en français, en anglais et en néerlandais ; la correspondance s'ajuste à l'aperçu."
+      fields_help: "Les en-têtes sont reconnus dans les langues de l'interface ; la correspondance s'ajuste à l'aperçu."
       mapping: "Correspondance des colonnes"
       mapping_help: "Choisissez le champ de chaque colonne, puis recalculez l'aperçu."
       column: "Colonne"

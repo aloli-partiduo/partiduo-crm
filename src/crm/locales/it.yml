@@ -1,0 +1,250 @@
+it:
+  crm:
+    module:
+      name: "Relazione con i clienti"
+    permissions:
+      read: "Consultare la relazione con i clienti"
+      write: "Inserire organizzazioni, contatti, opportunità e attività"
+      admin: "Configurare la relazione con i clienti (fasi, motivi, origini) e cancellare un contatto (GDPR)"
+    menu:
+      crm: "Relazione con i clienti"
+      crm_dashboard: "Cruscotto commerciale"
+      crm_pipeline: "Pipeline"
+      crm_opportunities: "Opportunità"
+      crm_activities: "Le mie attività"
+      crm_organizations: "Organizzazioni"
+      crm_contacts: "Contatti"
+      crm_import: "Importazione CSV"
+      crm_settings: "Relazione con i clienti"
+    stages:
+      discovery: "Scoperta"
+      qualification: "Qualificazione"
+      proposal: "Proposta"
+      negotiation: "Negoziazione"
+      won: "Vinta"
+      lost: "Persa"
+    loss_reasons:
+      price: "Prezzo"
+      competitor: "Scelto un concorrente"
+      no_budget: "Nessun budget"
+      no_decision: "Nessuna decisione"
+      timing: "Tempistica"
+      other: "Altro"
+    sources:
+      fair: "Fiera"
+      website: "Sito web"
+      referral: "Segnalazione"
+      prospecting: "Prospezione"
+      network: "Rete"
+      other: "Altro"
+    natures:
+      business: "Impresa"
+      individual: "Privato"
+      public: "Pubblica amministrazione"
+    civilities:
+      mr: "Sig."
+      ms: "Sig.ra"
+      mx: "Mx"
+    legal_bases:
+      legitimate_interest: "Interesse legittimo"
+      consent: "Consenso"
+      contract: "Contratto o richiesta del contatto"
+    activity_kinds:
+      call: "Chiamata"
+      meeting: "Appuntamento"
+      email: "E-mail"
+      task: "Compito"
+      note: "Nota"
+    organization_statuses:
+      prospect: "Potenziale cliente"
+      customer: "Cliente"
+    opportunity_statuses:
+      open: "Aperta"
+      won: "Vinta"
+      lost: "Persa"
+    history:
+      created: "Creazione"
+      quote_created: "Preventivo creato"
+      quote_accepted: "Preventivo accettato"
+    activities:
+      follow_up: "Sollecitare: preventivo %{number} rifiutato"
+    dashboard:
+      no_owner: "Senza responsabile"
+    import:
+      fields:
+        organization_name: "Organizzazione"
+        organization_nature: "Natura dell'organizzazione"
+        organization_siren: "SIREN"
+        organization_vat_number: "Partita IVA"
+        organization_email: "E-mail dell'organizzazione"
+        organization_phone: "Telefono dell'organizzazione"
+        organization_website: "Sito web"
+        organization_line1: "Indirizzo"
+        organization_postcode: "CAP"
+        organization_city: "Città"
+        organization_country: "Paese"
+        contact_civility: "Titolo"
+        contact_first_name: "Nome"
+        contact_last_name: "Cognome"
+        contact_job_title: "Funzione"
+        contact_email: "E-mail"
+        contact_phone: "Telefono"
+        contact_mobile: "Cellulare"
+        source: "Origine"
+        legal_basis: "Base giuridica"
+        notes: "Note"
+      duplicates:
+        siren: "Duplicato: stesso SIREN di «%{name}»"
+        organization_name: "Duplicato: organizzazione «%{name}» già seguita"
+        contact_email: "Duplicato: e-mail già nota (%{name})"
+        contact_name: "Duplicato: contatto «%{name}» già seguito"
+        file_email: "Duplicato: stessa e-mail della riga %{name}"
+    errors:
+      organization:
+        name:
+          blank: "Il nome dell'organizzazione è obbligatorio."
+          too_long: "Al massimo %{max} caratteri."
+        nature:
+          invalid: "«%{value}» non è valido."
+        siren:
+          invalid: "Il SIREN «%{value}» deve contare nove cifre."
+        vat_number:
+          too_long: "Al massimo %{max} caratteri."
+        email:
+          too_long: "Al massimo %{max} caratteri."
+          invalid: "«%{value}» non è un indirizzo e-mail."
+        phone:
+          too_long: "Al massimo %{max} caratteri."
+        website:
+          too_long: "Al massimo %{max} caratteri."
+        line1:
+          too_long: "Al massimo %{max} caratteri."
+        postcode:
+          too_long: "Al massimo %{max} caratteri."
+        city:
+          too_long: "Al massimo %{max} caratteri."
+        country_code:
+          invalid: "«%{value}» non è un codice paese di due lettere."
+        notes:
+          too_long: "Al massimo %{max} caratteri."
+        source_id:
+          unknown: "«%{value}» è sconosciuto."
+        owner_id:
+          unknown: "Questo responsabile non è un utente del dossier."
+        category_id:
+          missing: "Nessuna categoria di schede clienti: ne crei una nell'anagrafica."
+          not_customer: "Questa categoria non è una categoria di clienti."
+        already_customer: "Questa organizzazione è già cliente."
+        in_use: "Questa organizzazione è cliente o seguita (contatti, opportunità, attività): non può essere eliminata."
+      contact:
+        organization_id:
+          unknown: "«%{value}» è sconosciuto."
+        civility:
+          invalid: "«%{value}» non è valido."
+        first_name:
+          too_long: "Al massimo %{max} caratteri."
+        last_name:
+          blank: "Il cognome del contatto è obbligatorio."
+          too_long: "Al massimo %{max} caratteri."
+        job_title:
+          too_long: "Al massimo %{max} caratteri."
+        email:
+          too_long: "Al massimo %{max} caratteri."
+          invalid: "«%{value}» non è un indirizzo e-mail."
+        phone:
+          too_long: "Al massimo %{max} caratteri."
+        mobile:
+          too_long: "Al massimo %{max} caratteri."
+        source_id:
+          unknown: "«%{value}» è sconosciuto."
+        legal_basis:
+          invalid: "«%{value}» non è valido."
+        notes:
+          too_long: "Al massimo %{max} caratteri."
+        opposition_note:
+          too_long: "Al massimo %{max} caratteri."
+        already_opposed: "Questo contatto si è già opposto alla prospezione."
+        not_opposed: "Questo contatto non si è opposto alla prospezione."
+        quoted: "Questo contatto è collegato a un preventivo: non può essere cancellato."
+      opportunity:
+        title:
+          blank: "Il titolo è obbligatorio."
+          too_long: "Al massimo %{max} caratteri."
+        organization_id:
+          unknown: "Scelga un'organizzazione."
+        amount:
+          negative: "L'importo non può essere negativo."
+          scale: "Al massimo due decimali."
+        probability:
+          range: "La probabilità va da 0 a 100%."
+        stage_id:
+          invalid: "Questa fase non è disponibile."
+        contact_id:
+          unknown: "«%{value}» è sconosciuto."
+          opposed: "%{name} si è opposto/a alla prospezione."
+          other_organization: "Questo contatto appartiene a un'altra organizzazione."
+        owner_id:
+          unknown: "Questo responsabile non è un utente del dossier."
+        source_id:
+          unknown: "«%{value}» è sconosciuto."
+        loss_reason_id:
+          blank: "Il motivo della perdita è obbligatorio."
+          unknown: "«%{value}» è sconosciuto."
+        loss_note:
+          too_long: "Al massimo %{max} caratteri."
+        closed: "Questa opportunità è chiusa."
+      activity:
+        kind:
+          invalid: "«%{value}» non è valido."
+        subject:
+          blank: "L'oggetto è obbligatorio."
+          too_long: "Al massimo %{max} caratteri."
+        organization_id:
+          unknown: "«%{value}» è sconosciuto."
+        opportunity_id:
+          unknown: "«%{value}» è sconosciuto."
+        contact_id:
+          unknown: "«%{value}» è sconosciuto."
+          opposed: "%{name} si è opposto/a alla prospezione."
+          other_organization: "Questo contatto appartiene a un'altra organizzazione."
+        target:
+          missing: "Colleghi l'attività a un'organizzazione, a un contatto o a un'opportunità."
+        duration_minutes:
+          range: "La durata va da 0 a 14 400 minuti."
+        owner_id:
+          unknown: "Questo responsabile non è un utente del dossier."
+        report:
+          too_long: "Al massimo %{max} caratteri."
+      stage:
+        name:
+          blank: "Il nome della fase è obbligatorio."
+          too_long: "Al massimo %{max} caratteri."
+        probability:
+          range: "La probabilità va da 0 a 100%."
+        position:
+          range: "L'ordine va da 0 a 999."
+        active:
+          in_use: "Alcune opportunità sono in questa fase: le sposti prima di disattivarla."
+          last: "È necessaria almeno una fase di lavoro attiva."
+      loss_reason:
+        name:
+          blank: "La descrizione è obbligatoria."
+          too_long: "Al massimo %{max} caratteri."
+        position:
+          range: "L'ordine va da 0 a 999."
+      source:
+        name:
+          blank: "La descrizione è obbligatoria."
+          too_long: "Al massimo %{max} caratteri."
+        position:
+          range: "L'ordine va da 0 a 999."
+      import:
+        content:
+          empty: "Il file non contiene né intestazione né righe da importare."
+          too_many: "Al massimo %{max} righe per importazione."
+        mapping:
+          invalid: "Campo sconosciuto: «%{value}»."
+          twice: "Il campo «%{value}» è scelto per due colonne."
+          name_missing: "Associ una colonna al nome dell'organizzazione o al cognome del contatto."
+        row:
+          empty: "Riga senza nome di organizzazione né di contatto."
