@@ -14,12 +14,16 @@
 #   apparaît), `quote.decided` (devis accepté → « Gagnée », refusé →
 #   activité « relancer »), `invoice.issued` (facture rattachée à
 #   l'opportunité de son devis).
+# * Exclusion (D-AMD-042 du cœur) : jamais dans le dossier d'un foyer
+#   (`incompatible_with_kind "household"`, déjà écarté par `INVOICING`,
+#   exclu d'un foyer : la déclaration le dit explicitement).
 Partiduo::Modules.register do
   code "CRM"
   name "crm.module.name"
   version Crm::VERSION
   requires_core "~> 0.1"
   depends_on "INVOICING"
+  incompatible_with_kind "household"
 
   permission "crm.read"
   permission "crm.write"

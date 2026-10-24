@@ -16,6 +16,7 @@ describe "Extension CRM : manifeste et activation (ADR-003 D2, ADR-009 D1, D6, D
     manifest.version.should eq(Crm::VERSION)
     manifest.permissions.should eq(["crm.read", "crm.write", "crm.admin"])
     manifest.depends_on.should eq(["INVOICING"])
+    manifest.incompatible_with_kind.should eq(["household"])
     manifest.subscribed_events.sort.should eq(["card.saved", "invoice.issued", "quote.decided"])
     manifest.uis.map(&.path).should eq(["ui/bulma"])
     manifest.menus.map { |menu| {menu.code, menu.parent, menu.route} }.should eq([

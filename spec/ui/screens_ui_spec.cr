@@ -63,6 +63,9 @@ describe "Écrans de la relation client sous /ext/CRM/ (ADR-009, ADR-005)" do
     liberal.should contain(%(data-module="CRM"))
     liberal.should contain("pipeline pondéré, 1 opportunité ouverte")
 
+    # Micro-entreprise et profession libérale ne s'activent pas ensemble
+    # (D-AMD-038 du cœur) : l'une remplace l'autre.
+    Partiduo::Api::Modules.deactivate(S.system, "LIBERAL").success?.should be_true
     Partiduo::Api::Modules.activate(S.system, "MICRO").success?.should be_true
     Partiduo::Api::Micro.load_defaults(S.system)
     micro = browser.get("/").html
