@@ -41,9 +41,9 @@ it:
       count:
         one: "%{count} opportunità"
         other: "%{count} opportunità"
-      move_to: "Sposta verso «%{stage}»"
+      move_to: "Sposta in «%{stage}»"
       other_stage: "Altra fase…"
-      moved: "«%{title}» spostata verso «%{stage}»."
+      moved: "«%{title}» spostata in «%{stage}»."
       empty: "Nessuna opportunità."
     opportunities:
       intro: "Opportunità aperte per impostazione predefinita; «Senza seguito previsto»: nessuna attività in arrivo."

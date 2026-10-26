@@ -36,7 +36,7 @@ pt:
       filter: "Filtrar o pipeline"
       weighted_total: "Pipeline ponderado:"
       weighted: "ponderado"
-      help: "Mova um cartão com os botões ← e →, com «Outra etapa…», com o rato arrastando-o para uma coluna, ou com o teclado: Shift+← e Shift+→ no cartão que tem o foco (↑ e ↓ passam ao cartão vizinho)."
+      help: "Mova um cartão com os botões ← e →, com «Outra etapa…», com o rato, ao arrastá-lo para uma coluna, ou com o teclado: Shift+← e Shift+→ no cartão que tem o foco (↑ e ↓ passam ao cartão vizinho)."
       help_read: "Só consulta: não é possível mover as oportunidades."
       count:
         one: "%{count} oportunidade"

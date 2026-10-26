@@ -107,7 +107,7 @@ it:
         nature:
           invalid: "«%{value}» non è valido."
         siren:
-          invalid: "Il SIREN «%{value}» deve contare nove cifre."
+          invalid: "Il SIREN «%{value}» deve avere nove cifre."
         vat_number:
           too_long: "Al massimo %{max} caratteri."
         email:
@@ -210,7 +210,7 @@ it:
         target:
           missing: "Colleghi l'attività a un'organizzazione, a un contatto o a un'opportunità."
         duration_minutes:
-          range: "La durata va da 0 a 14 400 minuti."
+          range: "La durata va da 0 a 14.400 minuti."
         owner_id:
           unknown: "Questo responsabile non è un utente del dossier."
         report:

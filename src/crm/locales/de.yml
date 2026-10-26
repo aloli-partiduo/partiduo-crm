@@ -210,7 +210,7 @@ de:
         target:
           missing: "Verknüpfen Sie die Aktivität mit einer Organisation, einem Kontakt oder einer Verkaufschance."
         duration_minutes:
-          range: "Die Dauer liegt zwischen 0 und 14 400 Minuten."
+          range: "Die Dauer liegt zwischen 0 und 14.400 Minuten."
         owner_id:
           unknown: "Dieser Verantwortliche ist kein Benutzer des Mandanten."
         report:
